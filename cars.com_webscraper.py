@@ -11,7 +11,7 @@ soup = BeautifulSoup(r.text,'html.parser')
 list_of_items = soup.find_all('div',class_='shop-srp-listings__listing-container')
 
 file1 = open(r"C:\Users\joejung5678\PycharmProjects\WebScraper\exporteddata.csv","w+") 
-column_header = ["Title,","New or Used,","Mileage,","MSRP,","Price,","Dealer,","Link\n"]  
+column_header = ["Title,","New or Used,","Mileage,","MSRP,","Price,","Dealer,","Link,","Meta\n"]  
 file1.writelines(column_header)
 
 idx = 1
@@ -28,7 +28,7 @@ for x in list_of_items:
 
     mileage = None
     if x.a.div.find('span',class_='listing-row__mileage') is not None:
-        mileage = x.a.div.find('span',class_='listing-row__mileage').get_text()
+        mileage = x.a.div.find('span',class_='listing-row__mileage').get_text().replace(',','')
 
     msrp = None
     if x.a.div.find('div',class_='listing-row__details').find('span',class_='listing-row__msrp') is not None:
@@ -100,8 +100,10 @@ for x in list_of_items:
 
     if meta_dictionary is not None:
         for item in meta_dictionary:
+            file1.write(item + meta_dictionary.get(item) + '; ')
             print(item,meta_dictionary.get(item))
-
+    else:
+        file1.write(' ,')
     file1.write('\n')
     print()
 
