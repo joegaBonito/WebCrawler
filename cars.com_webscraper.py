@@ -40,7 +40,7 @@ for x in list_of_items:
 
     dealer = None
     if x.a.div.find('div',class_='listing-row__dealer').div.find('div',class_='dealer-name').span is not None:
-        dealer = x.a.div.find('div',class_='listing-row__dealer').div.find('div',class_='dealer-name').span.get_text()
+        dealer = x.a.div.find('div',class_='listing-row__dealer').div.find('div',class_='dealer-name').span.get_text().replace(',','')
 
     meta = None
     if x.a.div.find('div',class_='listing-row__details').find('ul',class_='listing-row__meta') is not None:
